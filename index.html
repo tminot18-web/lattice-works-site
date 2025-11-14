@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lattice Works – Fast, High-Production Software Systems</title>
+  <meta name="description" content="Lattice Works is a small, anonymous studio that designs and ships high-production web apps, dashboards, and internal systems with speed and precision." />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --panel: #050816;
+      --panel-alt: #0b1220;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.12);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --shadow-soft: 0 20px 40px rgba(0,0,0,0.65);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(circle at top, #111827 0, #020617 48%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 18px 64px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 20%, #38bdf8 0, #0ea5e9 32%, #020617 100%);
+      box-shadow:
+        0 0 0 1px rgba(148,163,184,0.6),
+        0 0 40px rgba(56,189,248,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #e5e7eb;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text span:first-child {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-text span:last-child {
+      font-size: 14px;
+      color: #e5e7eb;
+      opacity: 0.92;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148,163,184,0.35);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15,23,42,0.85);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+    }
+
+    .pill-strong {
+      border-color: rgba(56,189,248,0.7);
+      color: #bfdbfe;
+      background: rgba(8,47,73,0.65);
+    }
+
+    /* Layout */
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 2fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .pill-row {
+        justify-content: flex-start;
+      }
+    }
+
+    /* Hero / left */
+    .hero-card {
+      background:
+        radial-gradient(circle at top left, #111827 0, #020617 55%);
+      border-radius: 28px;
+      padding: 24px 22px 22px;
+      border: 1px solid rgba(148,163,184,0.25);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.35);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-tag span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .hero-tag-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+      box-shadow: 0 0 18px rgba(56,189,248,0.7);
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      color: #7dd3fc;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 36rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-subtitle b {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 16px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .metric {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .metric strong {
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+      color: #0b1120;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 14px 30px rgba(8,47,73,0.7);
+      text-decoration: none;
+    }
+
+    .btn-primary span:first-child {
+      font-size: 15px;
+    }
+
+    .btn-secondary {
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.96);
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+    }
+
+    .btn-secondary span:first-child {
+      font-size: 14px;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 7px 11px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: rgba(15,23,42,0.96);
+      font-size: 11px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      backdrop-filter: blur(14px);
+    }
+
+    .chip-label {
+      height: 18px;
+      min-width: 18px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--accent);
+    }
+
+    .hero-orbit {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148,163,184,0.32);
+      right: -90px;
+      top: -80px;
+      opacity: 0.7;
+    }
+
+    .hero-orbit-inner {
+      position: absolute;
+      inset: 26px;
+      border-radius: inherit;
+      border: 1px dashed rgba(56,189,248,0.5);
+    }
+
+    .hero-orbit-badge {
+      position: absolute;
+      right: 6%;
+      top: 54%;
+      transform: translateY(-50%);
+      background: rgba(15,23,42,0.98);
+      border-radius: 16px;
+      padding: 8px 10px;
+      border: 1px solid rgba(56,189,248,0.7);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 160px;
+    }
+
+    .hero-orbit-badge span:first-child {
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .hero-orbit-badge span:last-child {
+      color: #e5e7eb;
+      font-size: 11px;
+    }
+
+    @media (max-width: 860px) {
+      .hero-orbit {
+        display: none;
+      }
+    }
+
+    /* Right column: services / stack */
+    .stack-card {
+      background: rgba(8,13,30,0.95);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148,163,184,0.32);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .mini-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .mini-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-small {
+      border-radius: 999px;
+      padding: 4px 9px;
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15,23,42,0.96);
+    }
+
+    .stack-section + .stack-section {
+      border-top: 1px solid rgba(15,23,42,0.9);
+      padding-top: 10px;
+    }
+
+    /* Process / projects */
+    .timeline {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 2.1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 860px) {
+      .timeline {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: rgba(11,15,30,0.96);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148,163,184,0.3);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .steps {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .step-index {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15,23,42,0.96);
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .step-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .columns {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 2.2fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 860px) {
+      .columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .project-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .project-item {
+      border-radius: var(--radius-md);
+      padding: 10px 10px 9px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.3);
+    }
+
+    .project-item h3 {
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .project-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .project-item p {
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    .faq-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .faq-item {
+      border-radius: var(--radius-md);
+      padding: 9px 10px 8px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.28);
+    }
+
+    .faq-item h3 {
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .faq-item p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Contact */
+    .contact-card {
+      margin-top: 26px;
+      background:
+        radial-gradient(circle at top, rgba(8,47,73,0.5) 0, #020617 55%);
+      border-radius: 24px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(56,189,248,0.7);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .contact-header h2 {
+      font-size: 17px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 4px 9px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15,23,42,0.95);
+    }
+
+    .contact-body {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .contact-grid span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-grid code {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .contact-actions a.btn-primary {
+      text-decoration: none;
+    }
+
+    .contact-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    footer span {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark">LW</div>
+        <div class="brand-text">
+          <span>Lattice Works</span>
+          <span>Fast, high-production software systems</span>
+        </div>
+      </div>
+      <div class="pill-row">
+        <div class="pill pill-strong">
+          <span class="pill-dot"></span>
+          <span>Builds shipped in weeks, not quarters</span>
+        </div>
+        <div class="pill">
+          <span>Small studio • No hype • Just delivery</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero-card">
+        <div class="hero-tag">
+          <div class="hero-tag-icon"></div>
+          <span>Production-ready, shipped fast</span>
+        </div>
+
+        <h1 class="hero-title">
+          Architected like a <span>system</span>, delivered like a sprint.
+        </h1>
+
+        <p class="hero-subtitle">
+          Lattice Works is a small, anonymous studio that designs and ships
+          <b>web apps, dashboards, and internal systems</b> with a bias toward speed
+          and polish. The goal is simple: production value that looks like you’ve
+          hired a full team, built by one operator.
+        </p>
+
+        <div class="hero-metrics">
+          <div class="metric">
+            <strong>Full builds, scoped as systems</strong>
+            <span>From wireframe → production with clean handoff.</span>
+          </div>
+          <div class="metric">
+            <strong>Weeks, not quarters</strong>
+            <span>Typical work is broken into tight, shippable phases.</span>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <a
+            href="mailto:projects@lattice.works?subject=Project%20inquiry&body=Share%20a%20short%20description%20of%20what%20you%20want%20built%2C%20who%20it%27s%20for%2C%20and%20your%20ideal%20timeline."
+            class="btn-primary"
+          >
+            <span>✉️</span>
+            <span>Send a project outline</span>
+          </a>
+          <a href="#work" class="btn-secondary">
+            <span>▸</span>
+            <span>See representative builds</span>
+          </a>
+        </div>
+
+        <p class="hero-note">
+          No filler pages, no marketing fluff — just product engineering, UI,
+          and backend design for things that ship.
+        </p>
+
+        <div class="hero-list">
+          <div class="chip">
+            <span class="chip-label">01</span>
+            <span>Trading / screener dashboards wired to real data</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">02</span>
+            <span>Referral & payout systems with wallet or payment validation</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">03</span>
+            <span>MVP web apps that don’t feel like prototypes</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">04</span>
+            <span>Backend architecture planned as phases, not blobs</span>
+          </div>
+        </div>
+
+        <div class="hero-orbit">
+          <div class="hero-orbit-inner"></div>
+          <div class="hero-orbit-badge">
+            <span>Working style</span>
+            <span>Written-first, low-ceremony, focused on getting to a real build quickly.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right column -->
+      <aside class="stack-card">
+        <div class="stack-section">
+          <div class="section-label">Focus</div>
+          <div class="mini-title">Where Lattice Works spends time</div>
+          <div class="mini-sub">
+            A narrow band of work that compounds: each project improves the next.
+          </div>
+          <div class="pill-grid">
+            <span class="pill-small">Web apps & product UIs</span>
+            <span class="pill-small">Analytics dashboards</span>
+            <span class="pill-small">Screener & filter tools</span>
+            <span class="pill-small">Internal & ops tooling</span>
+            <span class="pill-small">Technical architecture</span>
+          </div>
+        </div>
+
+        <div class="stack-section">
+          <div class="mini-title">What “high-production” means here</div>
+          <div class="mini-sub">
+            Not a hacked-together prototype. A build you’re not embarrassed to demo.
+          </div>
+          <div class="pill-grid">
+            <span class="pill-small">Clean, modern frontends</span>
+            <span class="pill-small">Thought-out data models</span>
+            <span class="pill-small">Clear API surfaces</span>
+            <span class="pill-small">Readable, handoff-able code</span>
+            <span class="pill-small">Docs that don’t rot immediately</span>
+          </div>
+        </div>
+
+        <div class="stack-section">
+          <div class="mini-title">Typical stack</div>
+          <div class="mini-sub">
+            Chosen per project. Tools change; principles (clarity & speed) don’t.
+          </div>
+          <div class="pill-grid">
+            <span class="pill-small">TypeScript / JavaScript</span>
+            <span class="pill-small">React / Next.js or similar</span>
+            <span class="pill-small">FastAPI / Node APIs</span>
+            <span class="pill-small">PostgreSQL / SQL</span>
+            <span class="pill-small">Stripe / payment rails</span>
+            <span class="pill-small">Crypto / wallet integrations</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Process / Projects / FAQ -->
+    <section class="timeline" id="process">
+      <article class="card">
+        <h2>How projects run</h2>
+        <p>
+          The goal is to get from “idea in your head” to “real thing on a screen”
+          without dragging a committee through it.
+        </p>
+        <ul class="steps">
+          <li class="step">
+            <div class="step-index">1</div>
+            <div>
+              <div class="step-title">Outline</div>
+              <div class="step-text">
+                You send a short description: what you want built, who it’s for, and
+                why it matters now. Links, sketches, and rough notes are welcome.
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-index">2</div>
+            <div>
+              <div class="step-title">Architecture & scope</div>
+              <div class="step-text">
+                Lattice Works replies with clarifying questions and a proposed shape
+                for the system: core entities, surfaces, and phases that can ship
+                independently.
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-index">3</div>
+            <div>
+              <div class="step-title">Phases & pricing</div>
+              <div class="step-text">
+                Work is split into phases (e.g., core UI, core backend, enrichment
+                features). Each phase has a fixed price and clear acceptance criteria.
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-index">4</div>
+            <div>
+              <div class="step-title">Build loops</div>
+              <div class="step-text">
+                You get regular written updates, preview links, and chances to steer
+                details while the core direction stays stable.
+              </div>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-index">5</div>
+            <div>
+              <div class="step-title">Handoff</div>
+              <div class="step-text">
+                Deliverables include the code, basic docs, and notes for whoever
+                maintains it next — whether that’s an internal team or Lattice Works
+                on a later phase.
+              </div>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <section class="columns" id="work">
+        <article class="card">
+          <h2>Representative builds</h2>
+          <p>
+            Names and logos are kept off the page. Below are simplified versions of
+            the kinds of systems Lattice Works ships.
+          </p>
+          <ul class="project-list">
+            <li class="project-item">
+              <h3>Referral payout system with wallet validation</h3>
+              <div class="project-meta">
+                Dashboard • crypto wallet checks • fraud-resistant payouts
+              </div>
+              <p>
+                Designed and implemented a referral dashboard that lets a team
+                review, validate, and approve payouts tied to wallet activity.
+                The result: fewer fake submissions, faster processing, and a UI
+                simple enough for non-technical operators.
+              </p>
+            </li>
+            <li class="project-item">
+              <h3>Multi-asset trading screener UI</h3>
+              <div class="project-meta">
+                Landing page • member dashboard • backend blueprint
+              </div>
+              <p>
+                Built a marketing site and logged-in dashboard for a community
+                screener product, plus the backend architecture for phased rollout
+                of FX/crypto/equity filters and premium tiers.
+              </p>
+            </li>
+            <li class="project-item">
+              <h3>Founder-facing internal tooling</h3>
+              <div class="project-meta">
+                Internal dashboards • metrics • control panels
+              </div>
+              <p>
+                Turned a tangle of spreadsheets and ad-hoc scripts into focused
+                dashboards and control panels so founders could see what was going
+                on, change key values, and stop asking devs for one-off reports.
+              </p>
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Common questions</h2>
+          <p>
+            The studio is intentionally small, quiet, and execution-biased. A few
+            details up front:
+          </p>
+          <ul class="faq-list">
+            <li class="faq-item">
+              <h3>Who is behind Lattice Works?</h3>
+              <p>
+                The studio is run anonymously by a single operator. The emphasis is
+                on shipped work, not personal branding. If you need a big glossy
+                team page, this isn’t that.
+              </p>
+            </li>
+            <li class="faq-item">
+              <h3>How fast can something go live?</h3>
+              <p>
+                It depends on scope, but the bias is toward short, complete phases.
+                A focused dashboard or v1 web app usually lands in weeks, not
+                quarters, when decisions are made quickly.
+              </p>
+            </li>
+            <li class="faq-item">
+              <h3>Will there be calls?</h3>
+              <p>
+                Collaboration starts and mostly stays in writing. That’s how scopes
+                stay tight and decisions stay documented. If a rare call is truly
+                required, it’s treated as the exception, not the default.
+              </p>
+            </li>
+            <li class="faq-item">
+              <h3>What size projects make sense?</h3>
+              <p>
+                Best fits: single dashboards, targeted internal tools, v1 products,
+                and tightly defined subsystems inside a larger product. Long
+                multi-year roadmaps with unclear ownership are a worse fit.
+              </p>
+            </li>
+            <li class="faq-item">
+              <h3>Do you only do greenfield work?</h3>
+              <p>
+                No. Plugging a new system into an existing product or refactoring a
+                rough MVP into something production-grade is common, as long as the
+                boundaries are clear.
+              </p>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-card" id="contact">
+      <div class="contact-header">
+        <h2>Open to one-off builds and phased engagements</h2>
+        <div class="badge">Designed to move fast without breaking everything</div>
+      </div>
+      <p class="contact-body">
+        If you already have a rough idea of what you want, a short written brief is
+        enough to start. You’ll get a reply with follow-up questions, a suggested
+        shape for the work, and whether it’s a good fit.
+      </p>
+
+      <div class="contact-grid">
+        <span>📧 <strong>Email</strong> <code>projects@lattice.works</code></span>
+        <span>📝 <strong>Helpful to include</strong> <code>what • who • why now • rough timeline</code></span>
+      </div>
+
+      <div class="contact-actions">
+        <a
+          class="btn-primary"
+          href="mailto:projects@lattice.works?subject=Project%20inquiry&body=You%20can%20answer%20in%20a%20few%20lines%3A%0A%0A-%20What%20you%20want%20built%0A-%20Who%20it%27s%20for%0A-%20Why%20it%20matters%20now%0A-%20Any%20timeline%20constraints%0A-%20Links%20or%20docs%20if%20you%20have%20them%0A">
+          <span>✉️</span>
+          <span>Send a brief</span>
+        </a>
+        <span class="contact-note">
+          Expect a written reply, not a calendaring link.
+        </span>
+      </div>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> Lattice Works</span>
+      <span>Quiet studio, loud output.</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
